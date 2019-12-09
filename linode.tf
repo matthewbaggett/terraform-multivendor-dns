@@ -11,7 +11,7 @@ resource "linode_domain" "zone" {
   ttl_sec   = var.ttl
 }
 
-resource "linode_domain_record" "a_record" {
+resource "linode_domain_record" "a_records" {
   count       = var.enable_linode ? length(local.a_records) : 0
   domain_id   = linode_domain.zone[0].id
   name        = local.a_records[count.index].domain
@@ -20,7 +20,7 @@ resource "linode_domain_record" "a_record" {
   ttl_sec     = var.ttl
 }
 
-resource "linode_domain_record" "cname_record" {
+resource "linode_domain_record" "cname_records" {
   for_each    = var.enable_linode ? var.cname_records : {}
   domain_id   = linode_domain.zone[0].id
   name        = each.key
@@ -29,7 +29,7 @@ resource "linode_domain_record" "cname_record" {
   ttl_sec     = var.ttl
 }
 
-resource "linode_domain_record" "txt_record" {
+resource "linode_domain_record" "txt_records" {
   for_each    = var.enable_linode ? var.txt_records : {}
   domain_id   = linode_domain.zone[0].id
   name        = each.key
@@ -38,11 +38,11 @@ resource "linode_domain_record" "txt_record" {
   ttl_sec     = var.ttl
 }
 
-resource "linode_domain_record" "mx_record" {
+resource "linode_domain_record" "mx_records" {
   for_each    = var.enable_linode ? var.mx_records : {}
   domain_id   = linode_domain.zone[0].id
   name        = each.key
-  record_type = "CNAME"
+  record_type = "MX"
   target      = each.value
   ttl_sec     = var.ttl
 }
