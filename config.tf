@@ -46,6 +46,26 @@ variable "enable_scaleway" {
   default = false
 }
 
+# AWS Variables
+variable "aws_access_key" {
+  type    = string
+  default = ""
+}
+variable "aws_secret_key" {
+  type    = string
+  default = ""
+}
+
+# Scaleway variables
+variable "scaleway_access_key" {
+  type    = string
+  default = ""
+}
+variable "scaleway_secret_key" {
+  type    = string
+  default = ""
+}
+
 # Linode variables
 variable "linode_token" {
   type    = string
