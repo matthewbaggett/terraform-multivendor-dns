@@ -51,3 +51,16 @@ variable "linode_token" {
   type    = string
   default = ""
 }
+
+# Internally consumed
+
+locals {
+  a_records = flatten([
+    for domain, ips in var.a_records : [
+      for ip in ips : {
+        domain = domain
+        ip     = ip
+      }
+    ]
+  ])
+}

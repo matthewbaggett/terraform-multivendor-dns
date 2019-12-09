@@ -3,25 +3,6 @@ provider "linode" {
   token   = var.linode_token
 }
 
-locals {
-  a_records = flatten([
-    for domain, ips in var.a_records : [
-      for ip in ips : {
-        domain = domain
-        ip     = ip
-      }
-    ]
-  ])
-}
-
-output "a_records" {
-  value = local.a_records
-}
-
-output "cname_records" {
-  value = var.cname_records
-}
-
 resource "linode_domain" "zone" {
   count     = var.enable_linode ? 1 : 0
   domain    = var.root_domain
