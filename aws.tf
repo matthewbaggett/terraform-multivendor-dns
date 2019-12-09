@@ -23,6 +23,8 @@ resource "aws_route53_record" "a_records" {
 }
 
 resource "aws_route53_record" "cname_records" {
+  depends_on = [
+  aws_route53_zone.zone]
   for_each = var.enable_aws ? var.cname_records : {}
   zone_id  = aws_route53_zone.zone[0].zone_id
   name     = each.key
@@ -33,6 +35,8 @@ resource "aws_route53_record" "cname_records" {
 }
 
 resource "aws_route53_record" "txt_records" {
+  depends_on = [
+  aws_route53_zone.zone]
   for_each = var.enable_aws ? var.txt_records : {}
   zone_id  = aws_route53_zone.zone[0].zone_id
   name     = each.key
@@ -43,6 +47,8 @@ resource "aws_route53_record" "txt_records" {
 }
 
 resource "aws_route53_record" "mx_records" {
+  depends_on = [
+  aws_route53_zone.zone]
   for_each = var.enable_aws ? var.mx_records : {}
   zone_id  = aws_route53_zone.zone[0].zone_id
   name     = each.key
