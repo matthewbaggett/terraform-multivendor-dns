@@ -45,6 +45,10 @@ variable "enable_scaleway" {
   type    = bool
   default = false
 }
+variable "enable_gandi" {
+  type    = bool
+  default = false
+}
 
 # AWS Variables
 variable "aws_access_key" {
@@ -72,8 +76,13 @@ variable "linode_token" {
   default = ""
 }
 
-# Internally consumed
+# Gandi variables
+variable "gandi_key" {
+  type    = string
+  default = ""
+}
 
+# Internally consumed
 locals {
   a_records = flatten([for domain, ips in var.a_records : [for ip in ips : {
     domain = domain
