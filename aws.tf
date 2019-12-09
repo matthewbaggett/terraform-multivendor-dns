@@ -12,48 +12,41 @@ resource "aws_route53_zone" "zone" {
 }
 
 resource "aws_route53_record" "a_records" {
-  depends_on = [
-  aws_route53_zone.zone]
-  for_each = var.enable_aws ? var.a_records : {}
-  zone_id  = aws_route53_zone.zone[0].zone_id
-  name     = each.key
-  type     = "A"
-  ttl      = var.ttl
-  records  = each.value
+  depends_on = [aws_route53_zone.zone]
+  for_each   = var.enable_aws ? var.a_records : {}
+  zone_id    = aws_route53_zone.zone[0].zone_id
+  name       = each.key
+  type       = "A"
+  ttl        = var.ttl
+  records    = each.value
 }
 
 resource "aws_route53_record" "cname_records" {
-  depends_on = [
-  aws_route53_zone.zone]
-  for_each = var.enable_aws ? var.cname_records : {}
-  zone_id  = aws_route53_zone.zone[0].zone_id
-  name     = each.key
-  type     = "CNAME"
-  records = [
-  each.value]
-  ttl = var.ttl
+  depends_on = [aws_route53_zone.zone]
+  for_each   = var.enable_aws ? var.cname_records : {}
+  zone_id    = aws_route53_zone.zone[0].zone_id
+  name       = each.key
+  type       = "CNAME"
+  records    = [each.value]
+  ttl        = var.ttl
 }
 
 resource "aws_route53_record" "txt_records" {
-  depends_on = [
-  aws_route53_zone.zone]
-  for_each = var.enable_aws ? var.txt_records : {}
-  zone_id  = aws_route53_zone.zone[0].zone_id
-  name     = each.key
-  type     = "TXT"
-  records = [
-  each.value]
-  ttl = var.ttl
+  depends_on = [aws_route53_zone.zone]
+  for_each   = var.enable_aws ? var.txt_records : {}
+  zone_id    = aws_route53_zone.zone[0].zone_id
+  name       = each.key
+  type       = "TXT"
+  records    = [each.value]
+  ttl        = var.ttl
 }
 
 resource "aws_route53_record" "mx_records" {
-  depends_on = [
-  aws_route53_zone.zone]
-  for_each = var.enable_aws ? var.mx_records : {}
-  zone_id  = aws_route53_zone.zone[0].zone_id
-  name     = each.key
-  type     = "MX"
-  records = [
-  each.value]
-  ttl = var.ttl
+  depends_on = [aws_route53_zone.zone]
+  for_each   = var.enable_aws ? var.mx_records : {}
+  zone_id    = aws_route53_zone.zone[0].zone_id
+  name       = each.key
+  type       = "MX"
+  records    = [each.value]
+  ttl        = var.ttl
 }

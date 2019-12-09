@@ -75,12 +75,8 @@ variable "linode_token" {
 # Internally consumed
 
 locals {
-  a_records = flatten([
-    for domain, ips in var.a_records : [
-      for ip in ips : {
-        domain = domain
-        ip     = ip
-      }
-    ]
-  ])
+  a_records = flatten([for domain, ips in var.a_records : [for ip in ips : {
+    domain = domain
+    ip     = ip
+  }]])
 }
