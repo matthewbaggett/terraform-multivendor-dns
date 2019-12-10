@@ -11,7 +11,7 @@ resource "gandi_zonerecord" "a_records" {
   depends_on = [data.gandi_zone.zone]
   for_each   = var.enable_gandi ? var.a_records : {}
   zone       = data.gandi_zone.zone[0].id
-  name       = each.key == "" ? "@" : each.key
+  name       = each.key == "" ? "@" : replace(each.key, ".${data.gandi_zone.zone[0].name}", "")
   type       = "A"
   ttl        = var.ttl
   values     = each.value
@@ -21,7 +21,7 @@ resource "gandi_zonerecord" "cname_records" {
   depends_on = [data.gandi_zone.zone]
   for_each   = var.enable_gandi ? var.cname_records : {}
   zone       = data.gandi_zone.zone[0].id
-  name       = each.key == "" ? "@" : each.key
+  name       = each.key == "" ? "@" : replace(each.key, ".${data.gandi_zone.zone[0].name}", "")
   type       = "CNAME"
   ttl        = var.ttl
   values     = [each.value]
@@ -31,7 +31,7 @@ resource "gandi_zonerecord" "txt_records" {
   depends_on = [data.gandi_zone.zone]
   for_each   = var.enable_gandi ? var.txt_records : {}
   zone       = data.gandi_zone.zone[0].id
-  name       = each.key == "" ? "@" : each.key
+  name       = each.key == "" ? "@" : replace(each.key, ".${data.gandi_zone.zone[0].name}", "")
   type       = "TXT"
   ttl        = var.ttl
   values     = [each.value]
@@ -41,7 +41,7 @@ resource "gandi_zonerecord" "mx_records" {
   depends_on = [data.gandi_zone.zone]
   for_each   = var.enable_gandi ? var.mx_records : {}
   zone       = data.gandi_zone.zone[0].id
-  name       = each.key == "" ? "@" : each.key
+  name       = each.key == "" ? "@" : replace(each.key, ".${data.gandi_zone.zone[0].name}", "")
   type       = "A"
   ttl        = var.ttl
   values     = [each.value]
