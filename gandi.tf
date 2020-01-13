@@ -1,5 +1,6 @@
 provider "gandi" {
-  key = var.gandi_key
+  key     = var.gandi_key
+  version = "~> 1.1"
 }
 
 data "gandi_zone" "zone" {
