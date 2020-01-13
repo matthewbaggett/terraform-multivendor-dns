@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 cd "$(dirname "$0")"
-PLUGIN_DIR=../.terraform/plugins/linux_amd64
+PLUGIN_DIR=~/.terraform.d/plugins/linux_amd64
 
 GANDI_PROVIDER_NAME="terraform-provider-gandi"
 GANDI_PROVIDER_VERSION="master"
